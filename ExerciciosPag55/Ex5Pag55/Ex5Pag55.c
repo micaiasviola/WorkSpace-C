@@ -1,6 +1,14 @@
-#include <stdio.h>#include <conio.h>#include<math.h>#include<locale.h>#include<stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+#include <locale.h>
+#include <stdlib.h>
+
+
 
 main(){
+    
+    setlocale(LC_ALL,"PORTUGUESE");
     float n1, n2, n3, media;
 
     puts("\tInforme n1: \n");
@@ -12,5 +20,5 @@ main(){
 
     media = (n1+n2+n3)/3;
 
-    printf("A media é: %.2f", media);
+    printf("A media Ã©: %.2f", media);
 }
