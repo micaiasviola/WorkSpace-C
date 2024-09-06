@@ -25,8 +25,11 @@ void cadastroUser(){
     }
 
 Usuario newuser; // criando variavel de novo usuario, percebe que não definimos tipo, pois esta herdando da struct
-
+   // char n1[MAX_NOME];
     printf("\tDigite o nome de usuario: ");
+   // gets(n1);
+
+    //snprintf(newuser.nome, sizeof(newuser.nome), "%s", n1);
     scanf("%s", newuser.nome); // nota que não se usa & para endereçar uma variavel struct
     fflush(stdin);
     //verifica se o usuario esta cadastrado
@@ -34,16 +37,28 @@ Usuario newuser; // criando variavel de novo usuario, percebe que não definimos
     for(int i = 0; i < numUser; i ++){ //enquanto i for menor que a quantidade de usuario ele vai continuar rodando
         if(strcmp(user[i].nome, newuser.nome) == 0){ //se usuario o nome no vetor "user" for identico ao newuser que
             printf("Usuario ja cadastrado!");// acabamos de digitar atraves da função strcmp() == 0, entao o usuario ja existe
-        }return;
+        }return;//importante retornar algo, para o codigo ser executado novamente
     }
 
     printf("\n\tDigite a senha: ");
     scanf("%s", newuser.senha);
     fflush(stdin);
     user[numUser] = newuser; //armazena o newuser na posição numuser que sempre sera a ultima posicao do vetor user
-    numUser ++;
+    
 
     printf("\t\nUsuario cadastrado com sucesso!!!");
+
+    FILE *arquivo = fopen("users.txt", "w");
+
+    if(arquivo == NULL){
+        perror("NOT FOUND");
+        return 1;
+        } 
+    
+    fprintf(arquivo, "%s\n", user[numUser]);
+
+    fclose(arquivo);
+    numUser ++;       
 }
 
 
@@ -97,7 +112,7 @@ int main() {
 
         switch (opcao) {
             case 1:
-                cadastroUser();
+                cadastroUser();                   
                 break;
             case 2:
                 if (autenticarUser()) {
