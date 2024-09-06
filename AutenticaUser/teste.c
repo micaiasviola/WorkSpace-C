@@ -19,18 +19,19 @@ main(){
     printf("%s", nome.user);
 
     FILE *arquivo = fopen("dados.txt", "w");// abre um arquivo dados.txt, com o parametro WRITE
-
+    //FILE (*) cria o arquivo "arquivo" = fopen("nomedoarquivo", "permissoes WRX");
     if(arquivo == NULL){
         perror("Erro ao abrir o arquivo");
         return 1;
     }
 
-    //escrevendo no arquivo
+    //fprint(escreve em, "dado/tratamento da string", variavel)
     fprintf(arquivo, "nome: %s\n", nome.user);
     fprintf(arquivo, "senha: %s\n", nome.senha);
 
     fclose(arquivo); //fecha o arquivo
 
     printf("Dados escritos com sucesso!");
+    
     return 0;
 }
