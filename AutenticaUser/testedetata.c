@@ -85,7 +85,7 @@ int autenticarUser()
                                                       // de busca, no caso o "\n". a expressao pai confirmaNome[strcspn(confirmaNome, "\n")] = '\0'; usa o valor retornado da função strcspn como um "i" indice para acessar o caractere na posição onde o /n foi encontrado e substitiur por '\0', um nulo
 
     printf("Digite a senha: ");
-    fgets(confirmaSenha, MAX_SENHA, stdin);             // Lê a senha, percorre o TAMANHO MAX no caso, e as entrada são de teclado STDIN
+    fgets(confirmaSenha, MAX_SENHA, stdin);             // Lê a senha, percorre o TAMANHO MAX no caso, e as entradas são de teclado STDIN
     confirmaSenha[strcspn(confirmaSenha, "\n")] = '\0'; // Remove o caractere de nova linha
 
     // Verifica se o nome e senha estão corretos
