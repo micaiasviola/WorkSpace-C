@@ -60,8 +60,8 @@ void cadastroUser()
     }
 
     printf("\n\tDigite a senha: ");
-    fgets(novoUsuario.senha, MAX_SENHA, stdin);                 // Lê a senha
-    novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0'; // Remove o caractere de nova linha
+    fgets(novoUsuario.senha, MAX_SENHA, stdin);                 // Lê a senha/tamanho/entrada
+    novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0'; // Remove o caractere de nova linha/ percorre a variavel e substitius a strg2 pelo valor /0
 
     user[idUsuario] = novoUsuario; // Adiciona o novo usuário ao vetor de usuários
 
