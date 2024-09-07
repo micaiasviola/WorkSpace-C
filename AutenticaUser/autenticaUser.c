@@ -69,6 +69,7 @@ void cadastroUser()
     fprintf(arquivo, "%s\n", user[idUsuario].nome);
     fprintf(arquivo, "%s\n", user[idUsuario].senha);
     fclose(arquivo);
+    
 
     idUsuario++; // Incrementa o número de usuários
     printf("\t\nUsuário cadastrado com sucesso!!!\n");
