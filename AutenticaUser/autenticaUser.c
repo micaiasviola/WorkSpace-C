@@ -64,12 +64,13 @@ void cadastroUser()
     novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0'; // Remove o caractere de nova linha
 
     user[idUsuario] = novoUsuario; // Adiciona o novo usuário ao vetor de usuários
-
+    char usuarioId[MAX_USUARIOS];
+    // snprintf(usuarioId, sizeof(usuarioId), idUsuario);
     // Salva no arquivo
+    fprintf(arquivo, "%i\n", idUsuario);
     fprintf(arquivo, "%s\n", user[idUsuario].nome);
-    fprintf(arquivo, "%s\n", user[idUsuario].senha);
+ 
     fclose(arquivo);
-    
 
     idUsuario++; // Incrementa o número de usuários
     printf("\t\nUsuário cadastrado com sucesso!!!\n");

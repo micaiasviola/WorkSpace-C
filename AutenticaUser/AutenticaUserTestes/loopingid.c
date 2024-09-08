@@ -15,7 +15,7 @@ typedef struct
 
 Usuario user[MAX_USUARIOS]; // Vetor para armazenar os usuários
 int idUsuario = 0;          // Número de usuários cadastrados
-
+int numUsuario = 0;
 // Função para limpar o buffer de entrada
 void limparBuffer()
 {
@@ -34,9 +34,29 @@ void cadastroUser()
         puts("Número de usuários cadastrados excedido!");
         return;
     }
+    FILE *arquivo = fopen("usuarios.txt", "r");
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir o arquivo.\n");
+        return; // Retorna -1 se houver erro na abertura do arquivo
+    }
 
-    Usuario novoUsuario;                        // Variável temporária para novo usuário
-    FILE *arquivo = fopen("usuarios.txt", "a"); // Abertura do arquivo no modo de adição
+    int linhas = 0;
+    char ch;
+
+    while ((ch = fgetc(arquivo)) != EOF)
+    {
+        if (ch == '\n')
+        {
+            idUsuario++;
+            linhas++;
+        }
+    }
+
+    fclose(arquivo);
+    printf("%i", linhas);
+    Usuario novoUsuario;                  // Variável temporária para novo usuário
+    arquivo = fopen("usuarios.txt", "a"); // Abertura do arquivo no modo de adição
 
     if (!arquivo)
     { // se arquivo fol nulo
@@ -45,11 +65,16 @@ void cadastroUser()
     }
 
     printf("\tDigite o nome de usuário: ");
-    fgets(novoUsuario.nome, MAX_NOME, stdin);                 // Lê o nome do novo usuário
-    novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; // Remove o caractere de nova linha que pode ser escrito no buffer pela função fgets()
+    if (fgets(novoUsuario.nome, MAX_NOME, stdin) > 4)
+    { // Lê o nome do novo usuário
+        if (strlen(novoUsuario.nome) > 4)
+        {
+            novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; // Remove o caractere de nova linha que pode ser escrito no buffer pela função fgets()
+        }
+    }
 
     // Verifica se o usuário já existe
-    for (int i = 0; i < idUsuario; i++)
+    for (int i = 0; i < idUsuario + 1; i++)
     {
         if (strcmp(user[i].nome, novoUsuario.nome) == 0)
         { // usa o função strcmp para verificar se o nome escolhido ja existe, se for == 0 é verdadeiro o retorno de strcmp
@@ -60,17 +85,20 @@ void cadastroUser()
     }
 
     printf("\n\tDigite a senha: ");
-    fgets(novoUsuario.senha, MAX_SENHA, stdin);                 // Lê a senha/tamanho/entrada
-    novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0'; // Remove o caractere de nova linha/ percorre a variavel e substitius a strg2 pelo valor /0
+    fgets(novoUsuario.senha, MAX_SENHA, stdin);                 // Lê a senha
+    novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0'; // Remove o caractere de nova linha
 
     user[idUsuario] = novoUsuario; // Adiciona o novo usuário ao vetor de usuários
 
+    // snprintf(usuarioId, sizeof(usuarioId), idUsuario);
     // Salva no arquivo
+
+    fprintf(arquivo, "%i\n", idUsuario);
     fprintf(arquivo, "%s\n", user[idUsuario].nome);
-    fprintf(arquivo, "%s\n", user[idUsuario].senha);
+    // fprintf(arquivo, "%s\n", user[idUsuario].senha);
     fclose(arquivo);
 
-    idUsuario++; // Incrementa o número de usuários
+    ; // Incrementa o número de usuários
     printf("\t\nUsuário cadastrado com sucesso!!!\n");
 }
 
